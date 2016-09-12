@@ -56,7 +56,7 @@ extension NibDesignableProtocol {
      - returns: UIView instance loaded from a nib file.
      */
     public func loadNib() -> UIView {
-        let bundle = Bundle(for: self.dynamicType)
+        let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: self.nibName(), bundle: bundle)
         return nib.instantiate(withOwner: self, options: nil)[0] as! UIView // swiftlint:disable:this force_cast
     }
@@ -66,7 +66,7 @@ extension NibDesignableProtocol {
     /**
      Called in init(frame:) and init(aDecoder:) to load the nib and add it as a subview.
      */
-    private func setupNib() {
+    fileprivate func setupNib() {
         let view = self.loadNib()
         self.nibContainerView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -86,12 +86,12 @@ extension UIView {
      - returns: Name of a single view nib file.
      */
     public func nibName() -> String {
-        return self.dynamicType.description().components(separatedBy: ".").last!
+        return type(of: self).description().components(separatedBy: ".").last!
     }
 }
 
 @IBDesignable
-public class NibDesignable: UIView, NibDesignableProtocol {
+open class NibDesignable: UIView, NibDesignableProtocol {
 
     // MARK: - Initializer
     override public init(frame: CGRect) {
@@ -107,8 +107,8 @@ public class NibDesignable: UIView, NibDesignableProtocol {
 }
 
 @IBDesignable
-public class NibDesignableTableViewCell: UITableViewCell, NibDesignableProtocol {
-    public override var nibContainerView: UIView {
+open class NibDesignableTableViewCell: UITableViewCell, NibDesignableProtocol {
+    open override var nibContainerView: UIView {
         return self.contentView
     }
 
@@ -126,9 +126,9 @@ public class NibDesignableTableViewCell: UITableViewCell, NibDesignableProtocol 
 }
 
 @IBDesignable
-public class NibDesignableTableViewHeaderFooterView: UITableViewHeaderFooterView, NibDesignableProtocol {
+open class NibDesignableTableViewHeaderFooterView: UITableViewHeaderFooterView, NibDesignableProtocol {
 
-	public override var nibContainerView: UIView {
+	open override var nibContainerView: UIView {
 			return self.contentView
 	}
 
@@ -146,7 +146,7 @@ public class NibDesignableTableViewHeaderFooterView: UITableViewHeaderFooterView
 }
 
 @IBDesignable
-public class NibDesignableControl: UIControl, NibDesignableProtocol {
+open class NibDesignableControl: UIControl, NibDesignableProtocol {
 
     // MARK: - Initializer
     override public init(frame: CGRect) {
@@ -162,7 +162,7 @@ public class NibDesignableControl: UIControl, NibDesignableProtocol {
 }
 
 @IBDesignable
-public class NibDesignableCollectionReusableView: UICollectionReusableView, NibDesignableProtocol {
+open class NibDesignableCollectionReusableView: UICollectionReusableView, NibDesignableProtocol {
 
     // MARK: - Initializer
     override public init(frame: CGRect) {
@@ -178,8 +178,8 @@ public class NibDesignableCollectionReusableView: UICollectionReusableView, NibD
 }
 
 @IBDesignable
-public class NibDesignableCollectionViewCell: UICollectionViewCell, NibDesignableProtocol {
-    public override var nibContainerView: UIView {
+open class NibDesignableCollectionViewCell: UICollectionViewCell, NibDesignableProtocol {
+    open override var nibContainerView: UIView {
         return self.contentView
     }
 
