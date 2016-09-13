@@ -23,7 +23,9 @@
 //  SOFTWARE.
 
 import UIKit
+import NibDesignable
 
+@IBDesignable
 public class ProfileAvatarView: NibDesignable {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -42,7 +44,6 @@ public class ProfileAvatarView: NibDesignable {
             let path = UIBezierPath(ovalIn: rect)
             path.addClip()
             self.profileImage.draw(in: rect)
-
             let image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             self.profileImageView.image = image
@@ -56,7 +57,7 @@ public class ProfileAvatarView: NibDesignable {
         }
 
         if self.profileImage.size == CGSize.zero {
-            let bundle = Bundle(for: self.dynamicType)
+            let bundle = Bundle(for: type(of: self))
             self.profileImage = UIImage(named: "Donkey", in: bundle, compatibleWith: nil)!
         }
     }
