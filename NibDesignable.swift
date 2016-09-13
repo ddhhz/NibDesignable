@@ -85,7 +85,7 @@ extension UIView {
 
      - returns: Name of a single view nib file.
      */
-    public func nibName() -> String {
+    open func nibName() -> String {
         return type(of: self).description().components(separatedBy: ".").last!
     }
 }
@@ -108,7 +108,7 @@ open class NibDesignable: UIView, NibDesignableProtocol {
 
 @IBDesignable
 open class NibDesignableTableViewCell: UITableViewCell, NibDesignableProtocol {
-    open override var nibContainerView: UIView {
+    public override var nibContainerView: UIView {
         return self.contentView
     }
 
@@ -128,7 +128,7 @@ open class NibDesignableTableViewCell: UITableViewCell, NibDesignableProtocol {
 @IBDesignable
 open class NibDesignableTableViewHeaderFooterView: UITableViewHeaderFooterView, NibDesignableProtocol {
 
-	open override var nibContainerView: UIView {
+	public override var nibContainerView: UIView {
 			return self.contentView
 	}
 
@@ -179,7 +179,7 @@ open class NibDesignableCollectionReusableView: UICollectionReusableView, NibDes
 
 @IBDesignable
 open class NibDesignableCollectionViewCell: UICollectionViewCell, NibDesignableProtocol {
-    open override var nibContainerView: UIView {
+    public override var nibContainerView: UIView {
         return self.contentView
     }
 
